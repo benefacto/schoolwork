@@ -1,0 +1,180 @@
+Ben Walker
+CPSC 5031 01
+HW #4
+----------------------------------------------------------------------
+6.1; pg. 205; #7
+----------------------------------------------------------------------
+algo sortAndFindSum(A[0...n], s) // returns true if found, false if not
+sort A[0...n] // ascending, in n log n efficiency
+return findSum(A[0...n], s)
+
+algo findSum(A[l...r], s) // finds sum in sorted array
+	if l = r // entire array searched
+		return false
+	else if A[l] + A[r] = s // equal to sum
+		return true
+	else if A[l] + A[r] < s // less than sum
+		return findSum(A[l+1...r], s)
+	else // greater than sum
+		return findSum(A[l...r+1], s)
+
+The time efficiency would be O(n log n) because the sorting is n log n
+and while the findSum is n in the worst case because it never makes more
+comparisons than elements in the array. Since n log n is larger than n,
+it will drive the time efficiency for this algorithm. 
+
+----------------------------------------------------------------------
+6.3; pg. 225; #4a, 4b, 4c, 7a, 7b
+----------------------------------------------------------------------
+4.a. 1, 2, 3, 4, 5, 6
+
+             RR case                                RR case
+1 ->  1  ->  1           ->  2      ->  2      ->   2      ->
+       \      \             / \        / \         / \
+        2      2           1   3      1   3       1   3
+                \                          \           \
+                 3                          4           4
+             Left rotation                               \
+                                                          5
+                                                   Left rotation
+             RR case
+  2      ->  2             ->      4
+ / \        / \                   / \
+1   4      1   4                 2   5
+   / \        / \               / \   \
+  3   5      3   5             1   3   6
+                  \
+                   6
+             Left rotation
+
+4.b. 6, 5, 4, 3, 2, 1
+
+                              LL case
+6      ->      6      ->      6      ->      5      ->      5      ->
+              /              /              / \            / \
+             5              5              4   6          4   6
+                           /                             /
+                          4                             3
+                             Right rotation
+
+      LL case                       LL case
+      5      ->      5      ->      5      ->      3
+     / \            / \            / \            / \
+    4   6          4   6          4   6          2   5
+   /              / \            / \            /   / \
+  3              2   3          2   3          1   4   6 
+ /                             /
+2                             1
+     Right Rotation                Right Rotation
+
+4.c. 3, 6, 5, 1, 2, 4
+
+                              RR case
+3      ->      3      ->      3      ->      6      ->      6      ->
+                \              \            / \            / \
+                 6              6          3   5          3   5
+                                 \                       /
+                                  5                     1
+                              Left rotation
+
+    6      ->      6      ->       6
+   / \            / \            /   \
+  3   5          3   5          3     5
+ / \            / \            / \   /
+1   2          1   2          1   2 4
+
+7.a. C, O, M, P, U, T, I, N, G
+
+                                split
+C      ->      C,O      ->      C,M,O      ->      M      ->
+                                                  / \
+                                                 C   O
+
+  C      ->      C      ->      M,P      ->      M,P      ->
+ / \            / \            / | \            / | \
+C   O,P        C   O,P,U      C  O  U          C  O  T,U
+                   split
+
+    M,P      ->          M,P      ->        M
+  /  |  \              /  |  \           /     \
+C,I N,O T,U        C,G,I N,O T,U        G       P
+                   split               / \    /   \
+                                      C   I  N,O  T,U
+
+7.b. The largest number of key comparisons in this tree would
+be 4 comparisons; this would occur when you are searching for an
+O OR a U. The average number of key comparisons would be an order of
+log n as you are typically decreasing your search area by half
+depending on the hieght of the tree and the number of keys present
+at each node.
+
+----------------------------------------------------------------------
+6.4; pg. 233; #2, 6a, 6b, 6c, 6d, 6e, 8
+----------------------------------------------------------------------
+2. 
+algo heapCheck(H[s...n]) // returns true if heap, false if not
+	if s >= n
+		return true
+	else
+		if 2s+ 1 <= n
+			if H[s] < H[2s+1]
+				return false
+		if 2s <= n
+			if H[s] < H[2s]
+				return false
+		return heapCheck(H[s+1...n])
+
+
+Data Structure      | Find largest element | Delete largest element | Insert           |
+6.a. unsorted array | O(n)                 | O(n)*                  | O(n)*            |
+6.b. sorted array   | O(1)                 | O(n)*                  | O(n)*            |
+6.c. BST            | O(log n), O(n)**     | O(log n), O(n)**       | O(log n), O(n)** |
+6.d. AVL tree       | O(log n)             | O(log n)               | O(log n)         |
+6.e. Heap (max)     | O(1)                 | O(log n)               | O(log n)         |
+
+* assuming dynamic array
+** unbalanced tree
+
+8. Heapsort does not preserve the relative order of identical elements and therefore
+is not stable. For example, heapsorting the following (ascending) would swap the position of the 3s:
+
+8, 3a, 3b, 2      ->      2, 3b, 3a, 8
+
+In another example, upon removing the largest element from the following (max heap) would also result
+in the reversing the order of the 3s:
+
+9, 8, 3a, 3b, 2      ->      8, 3b, 3a, 2
+
+----------------------------------------------------------------------
+(Extra Credit) 6.4; pg. 233; #5b
+----------------------------------------------------------------------
+5.b. // assuming array implementation & max heap
+algo findAndDelete(f, H[0...n])
+	index = find(f, H[0...n])
+	if index != -1
+		delete(index, H[0...n])
+
+algo find(f, H[0...n])
+	for i = 0 to n
+		if H[i] = d
+			return i
+	return -1
+
+algo delete(index, H[0...n])
+	swap H[index] and H[n]
+	current = index
+	// percolates up
+	if H[current] > H[current/2]
+		while current != 0 and H[current] < H[current/2]
+			swap H[current] and H[current/2]
+			current = current/2
+	// percolates down
+	else if H[current] < max(H[2 * current], H[2 * current + 1])
+		while current != 0 and H[current] < max(H[2 * current], H[2 * current + 1])
+			greaterChild = indexOf(max(H[2 * current], H[2 * current + 1])
+			swap H[current] and H[greaterChild]
+
+
+This is in O(n) efficiency because the most expensive operation is the find
+method which is in order of n complexity. This operation drives the time
+efficiency of the entire algorithm.

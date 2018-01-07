@@ -1,0 +1,174 @@
+Ben Walker
+CPSC 5031 01
+HW #2
+----------------------------------------------------------------------
+2.1; pg. 50; #2, 3, 8d, 8e, 8f
+----------------------------------------------------------------------
+2.a. The basic operation for adding two n*n matrices
+would be addition. The amount of times it would be performed,
+for a matrix of order n, is n^2 times. For the total number of elements
+in the input matrices, the amount of times the basic operation would
+be performed would match that total number.
+
+2.b. The basic operation for multiplying two matrices is multiplication
+It is performed n^3 times (more specifically 2n^3 - n^2). 
+For the total number of elements, it would be performed each 
+of the input matrices amount multiplied.
+
+3. It differs; the worst case is the same, but the best and average case are different:
+Classic sequential search best case: O(1); average case: n/2; worst case: O(n)
+Variant sequential search all cases: n
+
+8.d. It will increase by a factor of 16.
+f(n) = n^2
+f(4n) = (4n)^2
+f(4n) = 16n^2
+
+8.e. It will increase by a factor of 64.
+f(n) = n^3
+f(4n) = (4n)^3
+f(4n) = 64n^3
+
+8.f. It will increase expoentially to the 4th power.
+f(n) = 2^n
+f(4n) = 2^(4n)
+f(4n) = (2^n)^4
+
+----------------------------------------------------------------------
+2.2; pg. 58; #2, 3a, 3c, 3d, 5, 10
+----------------------------------------------------------------------
+2.a. TRUE
+n(n+1)/2 E O(n^3)
+n(n+1)/2 <= n^3
+(1/2)n^2 + (1/2)n <= n^3
+
+2.b. TRUE
+n(n+1)/2 E O(n^2)
+n(n+1)/2 <= n^2
+(1/2)n^2 + (1/2)n <= n^2
+
+2.c. FALSE
+0 represents sigma
+n(n+1)/2 E 0(n^3)
+n(n+1)/2 E 0(n^3)
+(1/2)n^2 + (1/2)n E 0(n^3)
+n^2 \= n^3
+
+2.c. TRUE
+n(n+1)/2 E OMEGA(n)
+n(n+1)/2 E OMEGA(n)
+(1/2)n^2 + (1/2)n E OMEGA(n)
+(1/2)n^2 + (1/2)n >= n
+
+3.a. Prove (n^2 + 1)^10 E 0(n^20)
+t(n) = n^20 + 1 E 0(n^20) 
+There exists c_1, c_2 where c_2 * g(n) <= t(n) <= c_1 * g(n)
+c_2 * n^20 <= n^20 + 1 <= c_1 * n^20
+n_0 = 10, c_2 = 1/10, c_1 = 10
+(1/10) 10^20 <= 10^20 + 1 <= 10 * 10^20
+1e19 <= 1e20 + 1 <= 1e21
+Thus, t(n) E 0(n^20) where n_0 = 10, c_2 = 1/10, c_1 = 10
+
+3.c. Prove 2n * lg(n + 2)^2 + (n + 2)^2 * lg(n/2) E 0((n^2)lg(n))
+Assuming log base 2
+4n * lg(n + 2)^2 + (n^2 + 4) * lg(n/2)
+8n * lg(n + 2) + (n^2 + 4) * (lg(n) - lg(2))
+8n * (lg(n) + 1) + (n^2 + 4) * (lg(n) - 1)
+8n * lg(n) + 8n + (n^2)lg(n) + 4lg(n) - n^2 - 4
+
+(n^2)lg(n) - n^2 + 8n * lg(n) + 8n + 4lg(n) - 4
+t(n) = (n^2)lg(n) - n^2 + 8n * lg(n) + 8n + 4lg(n) - 4
+t(n) E 0((n^2)lg(n))
+c_2 * (n^2)lg(n) <= t(n) <= c_1 * (n^2)lg(n)
+n_0 = 4
+c_2 * (4^2)lg(4) <= (4^2)lg(4) - 4^2 + 8(4)lg(4) + 8(4) + 4lg(4) - 4 <= c_1 * (4^2)lg(4)
+c_2 * (16)2 <= (16)2 - 16 + (32)2 + 32 + 8 - 4 <= c_1 * (16)2
+c_2 * 32 <= 32 - 16 + 64 + 32 + 8 - 4 <= c_1 * 32
+c_2 * 32 <= 116 <= c_1 * 32
+c_2 = 2, c_1 = 20
+2 * 32 <= 116 <= 10 * 32
+64 <= 116 <= 320
+Thus t(n) E 0((n^2)lg(n)) where n_0 = 4, c_2 = 2, c_1 = 20
+
+3.d. Prove 2^(n+1) + 3^(n-1) E 0(3^n)
+2^n * 2^1 + 3^n * 3^-1
+t(n) = (1/3) * 3^n + 2 * 2^n
+c_2 * 3^n <= (1/3) * 3^n + 2 * 2^n <= c_1 * 3^n
+n_0 = 2
+c_2 * 3^2 <= (1/3) * 3^2 + 2 * 2^2 <= c_1 * 3^2
+c_2 * 9 <= (1/3) * 9 + 2 * 4 <= c_1 * 9
+c_2 * 9 <= 3 + 8 <= c_1 * 9
+c_2 * 9 <= 11 <= c_1 * 9
+c_2 = 1/9, c_1 = 10
+(1/9) * 9 <= 11 <= 10 * 9
+1 <= 11 <= 90
+Thus, t(n) E 0(3^n) where n_0 = 2, c_2 = 1/9, c_1 = 10
+
+5. i. cubic root of n
+ii. (ln(n))^2
+iii. 5lg(n+100)^10
+iv. 0.001n^4 + 3n^3 + 1
+v. 2^(2n)
+vi. 3^n
+vii. (n-2)!
+
+10.a. Iterate through list, keeping track of largest and smallest elements.
+Return largest minus smallest as range. This is E 0(n).
+
+10.b. Subtract the last element from the first element (assuming sorted descending).
+That is the range. This is E 0(1) or constant time.
+
+10.c. Store the first element as "large" (assuming sorted descending) and iterate until the next element
+is null (reach last element) and store the last element as "small". 
+The range is "large" - "small". This is E 0(n).
+
+10.d. You obtain the leftmost element and store it as "small" and the rightmost element and store it
+as "large". Range is "large" - "small". It would be O(n) in an unbalanced tree but 0(log n) in a balanced tree.
+
+----------------------------------------------------------------------
+2.3; pg. 67; #1a, 1c, 1d, 2a, 4
+----------------------------------------------------------------------
+1.a. 1 + 3 + 5 + 7 + ... + 999
+SUM(2i-1) for i=1 to 999 = 2SUM(i) for i=1 to 999 - SUM(1) for i=1 to 999
+= 2(999(999+1)/2) - (999-1+1)
+= 999000 - 1000
+= 998000
+
+1.c.
+SUM(1) for i=3 to n+1 = SUM(1) for i=1 to n+1 - SUM(1) for i=1 to 2
+= (n+1-1+1) - (2-1+1)
+= n + 1 - 2
+= n - 1
+
+1.d.
+SUM(i) for i=3 to n+1 = SUM(i) for i=1 to n+1 - SUM(i) for i=1 to 2
+= (n+1)(n+1+1)/2 - 2(2+1)/2
+= (n+1)(n+2)/2 - 6/2
+= ((n+1)(n+2)-6)/2
+= (n^2+3n-4)/2
+= (1/2)n^2 + (3/2)n - 2
+
+2.a.
+SUM((i^2+1)^2) for i=0 to n-1
+SUM((i^2+1)(i^2+1)) for i=0 to n-1
+SUM(i^4+i^2+i^2+1) for i=0 to n-1 
+SUM(i^4+2i^2+1) for i=0 to n-1
+Only highest term matters because second term is 0(n^3) and third term is 0(n^2)
+SUM(i^4) for i=0 to n-1 = 1 + 1... (n-2)^4 + (n-1)^4 + (n^4) - n^4
+1 - n^4 + SUM(i^4) for i=1 to n
+Using the rule SUM(i^k) for i=1 to n ~= (1/(k+1))n^(k+1)
+(1/(4+1))n^(4+1) - n^4 + 1
+0(n^5)
+
+4.a. This computes a summation:
+S = SUM(i^2) for i=1 to n
+
+4.b. The basic operation is multiplication.
+
+4.c. The basic operation is executed n times.
+
+4.d. 0(n)
+
+4.e. This summation can be performed in 0(1)
+because it corresponds to n(n+1(2n+1))/6 = ~(1/3)n^3
+as per a summation rule.
