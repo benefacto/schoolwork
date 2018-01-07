@@ -1,0 +1,231 @@
+/*
+Ben Walker
+CPSC 5021 – Database Systems
+Lab 2 – SQL
+
+Lab Assignment
+1. (14 points, 2 points each) Given the structure and contents of the database that you built 
+for courses, students, and registration of courses in lab2, write SQL code to answer 
+questions below. */
+
+CREATE TABLE Students (
+studentID CHAR(11) NOT NULL,
+firstName VARCHAR(20) NOT NULL,
+lastName VARCHAR(20) NOT NULL,
+gender  CHAR(1)  NOT NULL,
+dateofBirth DATE  NOT NULL,
+PRIMARY KEY ( studentID )
+)
+ENGINE=InnoDB;
+
+CREATE TABLE Courses (
+courseCode VARCHAR(6) NOT NULL,
+courseName VARCHAR(70) NOT NULL,
+level  CHAR(2),
+credits  FLOAT  NOT NULL,
+PRIMARY KEY ( courseCode )
+)
+ENGINE=InnoDB;
+
+CREATE TABLE `Registration` (
+studentID CHAR(11) NOT NULL,
+courseCode VARCHAR(6) NOT NULL,
+grade  DECIMAL(2, 1) NOT NULL,
+PRIMARY KEY ( studentID, courseCode ),
+UNIQUE INDEX ( studentID, courseCode ),
+FOREIGN KEY ( studentID ) REFERENCES Students ( studentID ),
+FOREIGN KEY ( courseCode ) REFERENCES Courses ( courseCode )
+)
+ENGINE=InnoDB;
+
+INSERT INTO Students
+VALUES('861103-2438', 'Adam', 'Johnson', 'M', '1990-10-01'),
+('911212-1746', 'Eva', 'Smith', 'F', '1991-08-20'),
+('950829-1848', 'Anna', 'Washington', 'F', '1993-09-26'),
+('123456-0980', 'Eric', 'Alonzo', 'M', '1990-05-26'),
+('908023-2456', 'Bo,', 'Ek', 'M', '1992-03-15'),
+('098735-3456', 'Danny', 'Goss', 'M', '1992-02-01'),
+('124345-3430', 'Mike', 'White', 'M', '1995-06-10'),
+('124568-1345', 'Emily', 'Young', 'F', '1995-04-28'),
+('908409-0010', 'Cathy', 'Lee', 'F', '1993-10-06'),
+('124587-9088', 'Ben', 'Woo', 'M', '1992-11-30'),
+('120953-0909', 'Anna', 'Washington', 'F', '1990-10-09'),
+('120449-1008', 'John', 'Goss', 'M', '1995-10-26');
+
+INSERT INTO Courses
+VALUES('CS056', 'Database Systems', 'G1','5'),
+('CS010', 'C++', 'U1','5'),
+('ENG111', 'English', 'U1','3'),
+('FIN052', 'Finance', 'G1', '5'),
+('PHY210', 'Physics', 'U2', '5'),
+('CHE350', 'Chemistry', 'U3', '5'),
+('BIO001', 'Biology', 'U1', '3'),
+('CS052', 'Operating Systems', 'G1', '5');
+
+INSERT INTO Registration
+VALUES('861103-2438', 'CS056', 4),
+('861103-2438', 'CS010', 4),
+('861103-2438', 'PHY210', 3.5),
+('911212-1746', 'ENG111', 2),
+('950829-1848', 'CHE350', 3),
+('950829-1848', 'BIO001', 2.5),
+('123456-0980', 'CS052', 3.5),
+('123456-0980', 'CS056', 4),
+('908023-2456', 'PHY210', 3.0),
+('908023-2456', 'CS056', 1.0),
+('908023-2456', 'CS010', 2.0),
+('124345-3430', 'FIN052', 2.5),
+('124345-3430', 'CHE350', 4),
+('908409-0010', 'CS052', 2),
+('124587-9088', 'BIO001', 4),
+('124587-9088', 'CS052', 3.5);
+
+/*
+a) Which courses (course name, course credits) have been taken by the student with student 
+ID 861103-2438? */
+
+SELECT courseName, credits
+FROM Registration JOIN Courses ON Registration.courseCode = Courses.courseCode
+WHERE studentID = "861103-2438";
+
+/*
+b) For students who have registered courses, how many credits has each student taken? In the 
+query result, list student ID, student first name, student last name, and his/her credits. */
+
+SELECT Students.studentID, firstName, lastName, COUNT(credits) AS credits_taken
+FROM Students JOIN Registration ON Students.studentID = Registration.studentID
+JOIN Courses ON Registration.courseCode = Courses.courseCode
+GROUP BY Students.studentID;
+
+/*
+c) Define a view that gives the student ID, student last name, student first name, and the 
+grade average for each student who has registered courses. */
+
+CREATE VIEW Students_AverageGrades AS 
+SELECT Students.studentID, lastName, firstName, AVG(grade) AS grade_average
+FROM Students JOIN Registration ON Students.studentID = Registration.studentID
+GROUP BY Students.studentID;
+
+/*
+d) Use the view in question (3) to find which students have the highest grade average. */
+
+SELECT * FROM Students_AverageGrades;
+ORDER BY Students_AverageGrades.grade_average DESC;
+
+/*
+e) Which students (student first name, student last name) have taken the course “Database 
+Systems”? */
+
+SELECT firstName, lastName
+FROM Students JOIN Registration ON Students.studentID = Registration.studentID
+JOIN Courses ON Registration.courseCode = Courses.courseCode
+WHERE Courses.courseName = "Database Systems"
+GROUP BY Students.studentID;
+
+/*
+f) List all the male students (student first name, student last name) who have taken both 
+“Database Systems” and “C++”. */
+
+SELECT firstName, lastName
+FROM Students JOIN Registration ON Students.studentID = Registration.studentID
+JOIN Courses ON Registration.courseCode = Courses.courseCode
+WHERE Students.studentID IN (
+	SELECT studentID
+	FROM Registration JOIN Courses
+	WHERE Courses.courseName = "Database Systems" )
+AND Students.studentID IN (
+	SELECT studentID
+	FROM Registration JOIN Courses
+	WHERE Courses.courseName = "C++" )
+GROUP BY Students.studentID;
+
+/*
+g) List all students (student ID, student first Name, student last Name) and the courses (course 
+name, course grade) that they have taken. If there are students who have not taken any 
+course yet, the query result should reflect that (i.e. null for courseName, null for grade). */
+
+SELECT Students.studentID, firstName, lastName, grade, courseName
+FROM Students LEFT OUTER JOIN Registration ON Students.studentID = Registration.studentID
+LEFT OUTER JOIN Courses ON Registration.courseCode = Courses.courseCode;
+
+/*
+2. (6 points, 2 points each) A database for inventory and transaction of Apple store has been 
+developed. There are three tables in this database – Inventory, Transaction, 
+Inventory_history. You can use the following script to create the tables. */
+
+create table Inventory
+(
+  itemid varchar(20) primary key,
+  name varchar(30),
+  price decimal(6,2),
+  quantity int
+)
+ENGINE = innoDB;
+
+create table Transaction
+(
+transid int auto_increment primary key,
+itemid varchar(20),
+quantity int,
+   time datetime,
+   foreign key (itemid) references Inventory(itemid)
+)
+ENGINE = innoDB;
+
+create table Inventory_history
+(
+   Id int auto_increment primary key,
+   itemid varchar(20),
+   action varchar(20),
+   oldprice decimal(6,2),
+   time datetime,
+   foreign key (itemid) references Inventory(itemid)
+)
+ENGINE = innoDB;
+
+/*
+a) Create a trigger “insert_inventory” on table “Inventory”. The trigger is fired after a row is 
+inserted in table “Inventory”. After a row is inserted in table “inventory”, the “itemid”, the 
+insertion time, and the action is inserted in table “Inventory_history”. The action is set to 
+‘add an item’. The oldprice is set to null. */
+
+DELIMITER /
+CREATE TRIGGER insert_inventory
+AFTER INSERT ON Inventory
+BEGIN
+	INSERT INTO Inventory_history (itemid, action, oldprice, time)
+	VALUES (NEW.itemid, ‘add an item’, null, NOW());
+END;
+/
+
+/*
+b) Create a trigger “change_quantity” on table “Transaction”. The trigger is fired after a row is 
+inserted in table “Transaction”. After a row is inserted in table “Transaction”, update the 
+“quantity” in table “Inventory”. For example, if 3 iWatch are sold, then the quantity of 
+iWatch in table “Inventory” is decreased by 3. */
+
+DELIMITER /
+CREATE TRIGGER change_quantity
+AFTER INSERT ON Transaction
+BEGIN
+	UPDATE Inventory
+	SET quantity = quantity - NEW.quantity
+	WHERE itemid = NEW.itemid;
+END;
+/
+
+/*
+c) Create a trigger “change_price” on table “Inventory”. The trigger is fired before a change is 
+made to the “Inventory” table. Before the price of an item is changed, the “itemid”, the 
+item’s old price, the action, and the time of change are inserted into the table 
+“Inventory_history”. The action is set to “price change”. */
+
+DELIMITER /
+CREATE TRIGGER change_price
+BEFORE UPDATE ON Inventory
+BEGIN
+	IF NEW.price <> OLD.price THEN
+	INSERT INTO Inventory_history (itemid, action, oldprice, time)
+	VALUES (OLD.itemid, 'price change', OLD.price, NOW())
+END;
+/

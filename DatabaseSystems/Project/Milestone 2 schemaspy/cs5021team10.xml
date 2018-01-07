@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="cs5021team10" type="MySQL - 5.1.73-log">
+   <tables>
+      <table name="applicant" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="applicant_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="applicant_id" foreignKey="applicant_employement_ibfk_1" implied="false" onDeleteCascade="false" table="applicant_employement"/>
+            <child column="applicant_id" foreignKey="applicant_ethnicity_ibfk_1" implied="false" onDeleteCascade="false" table="applicant_ethnicity"/>
+            <child column="applicant_id" foreignKey="applicant_name_ibfk_1" implied="false" onDeleteCascade="false" table="applicant_name"/>
+            <child column="applicant_id" foreignKey="applicant_test_ibfk_1" implied="false" onDeleteCascade="false" table="applicant_test"/>
+            <child column="applicant_id" foreignKey="education_history_ibfk_1" implied="false" onDeleteCascade="false" table="education_history"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="date_of_birth" nullable="false" remarks="" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="2" name="address_street" nullable="false" remarks="" size="60" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="address_city" nullable="false" remarks="" size="20" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="us_state_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="us_state_id" foreignKey="applicant_ibfk_1" implied="false" onDeleteCascade="false" table="us_state"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="address_zip" nullable="false" remarks="" size="5" type="CHAR"/>
+         <column autoUpdated="false" digits="0" id="6" name="phone_number" nullable="false" remarks="" size="11" type="CHAR"/>
+         <column autoUpdated="false" digits="0" id="7" name="us_citizen" nullable="false" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="8" name="english_native" nullable="true" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="9" name="hispanic" nullable="true" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="10" name="gender_id" nullable="true" remarks="" size="10" type="INT">
+            <parent column="gender_id" foreignKey="applicant_ibfk_2" implied="false" onDeleteCascade="false" table="gender"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="veteran_id" nullable="true" remarks="" size="10" type="INT">
+            <parent column="veteran_id" foreignKey="applicant_ibfk_3" implied="false" onDeleteCascade="false" table="veteran"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="military_branch_id" nullable="true" remarks="" size="10" type="INT">
+            <parent column="military_branch_id" foreignKey="applicant_ibfk_4" implied="false" onDeleteCascade="false" table="military_branch"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="student_type_id" nullable="true" remarks="" size="10" type="INT">
+            <parent column="student_type_id" foreignKey="applicant_ibfk_5" implied="false" onDeleteCascade="false" table="student_type"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="14" name="major_id" nullable="true" remarks="" size="10" type="INT">
+            <parent column="major_id" foreignKey="applicant_ibfk_6" implied="false" onDeleteCascade="false" table="major"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="15" name="term_id" nullable="true" remarks="" size="10" type="INT">
+            <parent column="term_id" foreignKey="applicant_ibfk_7" implied="false" onDeleteCascade="false" table="term"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="16" name="financial_aid" nullable="true" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="17" name="tuition_assist" nullable="true" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="18" name="apply_other" nullable="true" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="19" name="convicted" nullable="true" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="20" name="probation" nullable="true" remarks="" size="0" type="BIT"/>
+         <primaryKey column="applicant_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="applicant_id"/>
+         </index>
+         <index name="applicant_id" unique="true">
+            <column ascending="true" name="applicant_id"/>
+         </index>
+         <index name="gender_id" unique="false">
+            <column ascending="true" name="gender_id"/>
+         </index>
+         <index name="major_id" unique="false">
+            <column ascending="true" name="major_id"/>
+         </index>
+         <index name="military_branch_id" unique="false">
+            <column ascending="true" name="military_branch_id"/>
+         </index>
+         <index name="student_type_id" unique="false">
+            <column ascending="true" name="student_type_id"/>
+         </index>
+         <index name="term_id" unique="false">
+            <column ascending="true" name="term_id"/>
+         </index>
+         <index name="us_state_id" unique="false">
+            <column ascending="true" name="us_state_id"/>
+         </index>
+         <index name="veteran_id" unique="false">
+            <column ascending="true" name="veteran_id"/>
+         </index>
+      </table>
+      <table name="applicant_employement" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="applicant_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="applicant_id" foreignKey="applicant_employement_ibfk_1" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="employer_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="employer_id" foreignKey="applicant_employement_ibfk_2" implied="false" onDeleteCascade="false" table="employer"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="start_date" nullable="false" remarks="" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="3" name="end_date" nullable="true" remarks="" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="4" name="currently_employed" nullable="false" remarks="" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="5" name="job_title" nullable="true" remarks="" size="25" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="6" name="full_time" nullable="true" remarks="" size="0" type="BIT"/>
+         <primaryKey column="applicant_id" sequenceNumberInPK="1"/>
+         <primaryKey column="employer_id" sequenceNumberInPK="2"/>
+         <primaryKey column="start_date" sequenceNumberInPK="3"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="applicant_id"/>
+            <column ascending="true" name="employer_id"/>
+            <column ascending="true" name="start_date"/>
+         </index>
+         <index name="employer_id" unique="false">
+            <column ascending="true" name="employer_id"/>
+         </index>
+      </table>
+      <table name="applicant_ethnicity" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="applicant_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="applicant_id" foreignKey="applicant_ethnicity_ibfk_1" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="ethnicity_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="ethnicity_id" foreignKey="applicant_ethnicity_ibfk_2" implied="false" onDeleteCascade="false" table="ethnicity"/>
+         </column>
+         <primaryKey column="applicant_id" sequenceNumberInPK="1"/>
+         <primaryKey column="ethnicity_id" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="applicant_id"/>
+            <column ascending="true" name="ethnicity_id"/>
+         </index>
+         <index name="ethnicity_id" unique="false">
+            <column ascending="true" name="ethnicity_id"/>
+         </index>
+      </table>
+      <table name="applicant_name" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="applicant_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="applicant_id" foreignKey="applicant_name_ibfk_1" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="name_id" foreignKey="applicant_name_ibfk_2" implied="false" onDeleteCascade="false" table="name"/>
+         </column>
+         <primaryKey column="applicant_id" sequenceNumberInPK="1"/>
+         <primaryKey column="name_id" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="applicant_id"/>
+            <column ascending="true" name="name_id"/>
+         </index>
+         <index name="name_id" unique="false">
+            <column ascending="true" name="name_id"/>
+         </index>
+      </table>
+      <table name="applicant_test" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="applicant_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="applicant_id" foreignKey="applicant_test_ibfk_1" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="test_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="test_id" foreignKey="applicant_test_ibfk_2" implied="false" onDeleteCascade="false" table="test"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="test_date" nullable="false" remarks="" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="3" name="test_score" nullable="true" remarks="" size="10" type="VARCHAR"/>
+         <primaryKey column="applicant_id" sequenceNumberInPK="1"/>
+         <primaryKey column="test_date" sequenceNumberInPK="2"/>
+         <primaryKey column="test_id" sequenceNumberInPK="3"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="applicant_id"/>
+            <column ascending="true" name="test_id"/>
+            <column ascending="true" name="test_date"/>
+         </index>
+         <index name="test_id" unique="false">
+            <column ascending="true" name="test_id"/>
+         </index>
+      </table>
+      <table name="college" numRows="6" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="college_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="college_id" foreignKey="college_degree_ibfk_1" implied="false" onDeleteCascade="false" table="college_degree"/>
+            <child column="college_id" foreignKey="major_ibfk_1" implied="false" onDeleteCascade="false" table="major"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="college_name" nullable="false" remarks="" size="80" type="VARCHAR"/>
+         <primaryKey column="college_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="college_id"/>
+         </index>
+         <index name="college_id" unique="true">
+            <column ascending="true" name="college_id"/>
+         </index>
+      </table>
+      <table name="college_degree" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="college_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="college_id" foreignKey="college_degree_ibfk_1" implied="false" onDeleteCascade="false" table="college"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="degree_type_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="degree_type_id" foreignKey="college_degree_ibfk_2" implied="false" onDeleteCascade="false" table="degree_type"/>
+         </column>
+         <primaryKey column="college_id" sequenceNumberInPK="1"/>
+         <primaryKey column="degree_type_id" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="college_id"/>
+            <column ascending="true" name="degree_type_id"/>
+         </index>
+         <index name="degree_type_id" unique="false">
+            <column ascending="true" name="degree_type_id"/>
+         </index>
+      </table>
+      <table name="degree_type" numRows="2" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="degree_type_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="degree_type_id" foreignKey="college_degree_ibfk_2" implied="false" onDeleteCascade="false" table="college_degree"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="degree_type_name" nullable="false" remarks="" size="80" type="VARCHAR"/>
+         <primaryKey column="degree_type_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="degree_type_id"/>
+         </index>
+         <index name="degree_type_id" unique="true">
+            <column ascending="true" name="degree_type_id"/>
+         </index>
+      </table>
+      <table name="education_history" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="education_history_id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="applicant_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="applicant_id" foreignKey="education_history_ibfk_1" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="institution" nullable="false" remarks="" size="50" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="attended_from" nullable="false" remarks="" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="4" name="attended_to" nullable="false" remarks="" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="5" name="major" nullable="false" remarks="" size="50" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="6" name="degree" nullable="true" remarks="" size="50" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="7" name="date_received" nullable="true" remarks="" size="10" type="DATE"/>
+         <primaryKey column="applicant_id" sequenceNumberInPK="1"/>
+         <primaryKey column="education_history_id" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="education_history_id"/>
+            <column ascending="true" name="applicant_id"/>
+         </index>
+         <index name="applicant_id" unique="false">
+            <column ascending="true" name="applicant_id"/>
+         </index>
+         <index name="education_history_id" unique="true">
+            <column ascending="true" name="education_history_id"/>
+         </index>
+      </table>
+      <table name="employer" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="employer_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="employer_id" foreignKey="applicant_employement_ibfk_2" implied="false" onDeleteCascade="false" table="applicant_employement"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="employer_name" nullable="true" remarks="" size="50" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="employer_address_street" nullable="true" remarks="" size="25" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="us_state_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="us_state_id" foreignKey="employer_ibfk_1" implied="false" onDeleteCascade="false" table="us_state"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="employer_address_zip" nullable="true" remarks="" size="10" type="VARCHAR"/>
+         <primaryKey column="employer_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="employer_id"/>
+         </index>
+         <index name="employer_id" unique="true">
+            <column ascending="true" name="employer_id"/>
+         </index>
+         <index name="us_state_id" unique="false">
+            <column ascending="true" name="us_state_id"/>
+         </index>
+      </table>
+      <table name="ethnicity" numRows="5" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="ethnicity_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="ethnicity_id" foreignKey="applicant_ethnicity_ibfk_2" implied="false" onDeleteCascade="false" table="applicant_ethnicity"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="ethnicity_name" nullable="false" remarks="" size="50" type="VARCHAR"/>
+         <primaryKey column="ethnicity_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="ethnicity_id"/>
+         </index>
+         <index name="ethnicity_id" unique="true">
+            <column ascending="true" name="ethnicity_id"/>
+         </index>
+      </table>
+      <table name="gender" numRows="3" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="gender_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="gender_id" foreignKey="applicant_ibfk_2" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="gender_name" nullable="false" remarks="" size="20" type="VARCHAR"/>
+         <primaryKey column="gender_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="gender_id"/>
+         </index>
+      </table>
+      <table name="major" numRows="3" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="major_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="major_id" foreignKey="applicant_ibfk_6" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="major_name" nullable="false" remarks="" size="80" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="college_id" nullable="false" remarks="" size="10" type="INT">
+            <parent column="college_id" foreignKey="major_ibfk_1" implied="false" onDeleteCascade="false" table="college"/>
+         </column>
+         <primaryKey column="major_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="major_id"/>
+         </index>
+         <index name="college_id" unique="false">
+            <column ascending="true" name="college_id"/>
+         </index>
+         <index name="major_id" unique="true">
+            <column ascending="true" name="major_id"/>
+         </index>
+      </table>
+      <table name="military_branch" numRows="6" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="military_branch_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="military_branch_id" foreignKey="applicant_ibfk_4" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="military_branch_name" nullable="false" remarks="" size="20" type="VARCHAR"/>
+         <primaryKey column="military_branch_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="military_branch_id"/>
+         </index>
+         <index name="military_branch_id" unique="true">
+            <column ascending="true" name="military_branch_id"/>
+         </index>
+      </table>
+      <table name="name" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="name_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="name_id" foreignKey="applicant_name_ibfk_2" implied="false" onDeleteCascade="false" table="applicant_name"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name_value" nullable="false" remarks="" size="50" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="name_type" nullable="false" remarks="" size="1" type="CHAR">
+            <parent column="name_type" foreignKey="name_ibfk_1" implied="false" onDeleteCascade="false" table="name_type"/>
+         </column>
+         <primaryKey column="name_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="name_id"/>
+         </index>
+         <index name="name_id" unique="true">
+            <column ascending="true" name="name_id"/>
+         </index>
+         <index name="name_type" unique="false">
+            <column ascending="true" name="name_type"/>
+         </index>
+      </table>
+      <table name="name_type" numRows="4" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="name_type" nullable="false" remarks="" size="1" type="CHAR">
+            <child column="name_type" foreignKey="name_ibfk_1" implied="false" onDeleteCascade="false" table="name"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name_descr" nullable="false" remarks="" size="12" type="VARCHAR"/>
+         <primaryKey column="name_type" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="name_type"/>
+         </index>
+      </table>
+      <table name="student_type" numRows="3" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="student_type_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="student_type_id" foreignKey="applicant_ibfk_5" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="student_type_name" nullable="false" remarks="" size="30" type="VARCHAR"/>
+         <primaryKey column="student_type_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="student_type_id"/>
+         </index>
+         <index name="student_type_id" unique="true">
+            <column ascending="true" name="student_type_id"/>
+         </index>
+      </table>
+      <table name="term" numRows="4" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="term_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="term_id" foreignKey="applicant_ibfk_7" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="term_name" nullable="false" remarks="" size="30" type="VARCHAR"/>
+         <primaryKey column="term_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="term_id"/>
+         </index>
+         <index name="term_id" unique="true">
+            <column ascending="true" name="term_id"/>
+         </index>
+      </table>
+      <table name="test" numRows="9" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="test_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="test_id" foreignKey="applicant_test_ibfk_2" implied="false" onDeleteCascade="false" table="applicant_test"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="test_name" nullable="false" remarks="" size="50" type="VARCHAR"/>
+         <primaryKey column="test_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="test_id"/>
+         </index>
+         <index name="test_id" unique="true">
+            <column ascending="true" name="test_id"/>
+         </index>
+      </table>
+      <table name="us_state" numRows="50" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="us_state_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="us_state_id" foreignKey="applicant_ibfk_1" implied="false" onDeleteCascade="false" table="applicant"/>
+            <child column="us_state_id" foreignKey="employer_ibfk_1" implied="false" onDeleteCascade="false" table="employer"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="us_state_name" nullable="false" remarks="" size="50" type="VARCHAR"/>
+         <primaryKey column="us_state_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="us_state_id"/>
+         </index>
+         <index name="us_state_id" unique="true">
+            <column ascending="true" name="us_state_id"/>
+         </index>
+      </table>
+      <table name="veteran" numRows="4" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="veteran_id" nullable="false" remarks="" size="10" type="INT">
+            <child column="veteran_id" foreignKey="applicant_ibfk_3" implied="false" onDeleteCascade="false" table="applicant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="veteran_status" nullable="false" remarks="" size="20" type="VARCHAR"/>
+         <primaryKey column="veteran_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="veteran_id"/>
+         </index>
+         <index name="veteran_id" unique="true">
+            <column ascending="true" name="veteran_id"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="walkerb5" type="MySQL - 5.1.73-log">
+   <tables>
+      <table name="Courses" numRows="8" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="courseCode" nullable="false" remarks="" size="6" type="VARCHAR">
+            <child column="courseCode" foreignKey="Registration_ibfk_2" implied="false" onDeleteCascade="false" table="Registration"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="courseName" nullable="false" remarks="" size="70" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="level" nullable="true" remarks="" size="2" type="CHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="credits" nullable="false" remarks="" size="12" type="FLOAT"/>
+         <primaryKey column="courseCode" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="courseCode"/>
+         </index>
+      </table>
+      <table name="Registration" numRows="15" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="studentID" nullable="false" remarks="" size="11" type="CHAR">
+            <parent column="studentID" foreignKey="Registration_ibfk_1" implied="false" onDeleteCascade="false" table="Students"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="courseCode" nullable="false" remarks="" size="6" type="VARCHAR">
+            <parent column="courseCode" foreignKey="Registration_ibfk_2" implied="false" onDeleteCascade="false" table="Courses"/>
+         </column>
+         <column autoUpdated="false" digits="1" id="2" name="grade" nullable="false" remarks="" size="2" type="DECIMAL"/>
+         <primaryKey column="courseCode" sequenceNumberInPK="1"/>
+         <primaryKey column="studentID" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="studentID"/>
+            <column ascending="true" name="courseCode"/>
+         </index>
+         <index name="courseCode" unique="false">
+            <column ascending="true" name="courseCode"/>
+         </index>
+         <index name="studentID" unique="true">
+            <column ascending="true" name="studentID"/>
+            <column ascending="true" name="courseCode"/>
+         </index>
+      </table>
+      <table name="Students" numRows="12" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="studentID" nullable="false" remarks="" size="11" type="CHAR">
+            <child column="studentID" foreignKey="Registration_ibfk_1" implied="false" onDeleteCascade="false" table="Registration"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="firstName" nullable="false" remarks="" size="20" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="lastName" nullable="false" remarks="" size="20" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="gender" nullable="false" remarks="" size="1" type="CHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="dateofBirth" nullable="false" remarks="" size="10" type="DATE"/>
+         <primaryKey column="studentID" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="studentID"/>
+         </index>
+      </table>
+   </tables>
+</database>
